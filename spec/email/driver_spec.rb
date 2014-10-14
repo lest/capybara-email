@@ -26,20 +26,6 @@ feature 'Integration test' do
     expect(all_emails).to be_empty
   end
 
-  scenario 'html email follows links' do
-    email = deliver(html_email)
-    open_email('test@example.com')
-
-    current_email.click_link 'example'
-    expect(page.current_url).to eq('http://example.com/')
-
-    current_email.click_link 'another example'
-    expect(page.current_url).to eq('http://example.com:1234/')
-
-    current_email.click_link 'yet another example'
-    expect(page.current_url).to eq('http://example.com:1234/some/path?foo=bar')
-  end
-
   scenario 'plain text email' do
     email = deliver(plain_email)
 
@@ -161,8 +147,6 @@ def html_email
     <p>
       This is only a html test.
       <a href="http://example.com">example</a>
-      <a href="http://example.com:1234">another example</a>
-      <a href="http://example.com:1234/some/path?foo=bar">yet another example</a>
     </p>
   </body>
 </html>
